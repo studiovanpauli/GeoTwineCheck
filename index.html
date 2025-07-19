@@ -105,7 +105,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
 	<tw-storydata name="Geo Test" startnode="1" creator="Twine" creator-version="2.10.0" format="SugarCube" format-version="2.37.3" ifid="BE4871E0-F328-4660-8809-552B5930087A" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript">// Calculate distance between two GPS coordinates (in km)
-function getDistance(lat1, lon1, lat2, lon2) {
+(function getDistance(lat1, lon1, lat2, lon2) {
 	const R = 6371; // Radius of the earth in km
 	const dLat = (lat2 - lat1) * Math.PI / 180;
 	const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -115,12 +115,13 @@ function getDistance(lat1, lon1, lat2, lon2) {
 		Math.sin(dLon/2) * Math.sin(dLon/2);
 	const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	return R * c;
-}
+}());
 
 // Check geolocation and set a variable
-function checkLocation() {
+(function checkLocation() {
 	if (!navigator.geolocation) {
 		console.log("Geolocation is not supported.");
+        State.variables.characterAppears = false;
 		return;
 	}
 
@@ -141,9 +142,10 @@ function checkLocation() {
 		}
 	}, function(error) {
 		console.log("Geolocation error:", error.message);
+		State.variables.characterAppears = false;
 	});
-}
-</script><tw-passagedata pid="1" name="Welcome" tags="" position="725,325" size="100,100">Welcome
+}());
+console.log("✅ Custom JavaScript loaded");</script><tw-passagedata pid="1" name="Welcome" tags="" position="725,325" size="100,100">Welcome
 
 This is an exciting self led workshop saturday!
 
